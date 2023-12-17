@@ -4,6 +4,7 @@ import {
   type LoaderFunction,
 } from "react-router-dom";
 import LoginPage from "../views/loginPage";
+import NotFoundPage from "../views/notFound";
 
 export default createBrowserRouter([
   {
@@ -14,4 +15,8 @@ export default createBrowserRouter([
       return null
     }) as LoaderFunction<typeof LoginPage>,
   },
+  {
+    path:'*',
+    element:<NotFoundPage />
+  }
 ]);

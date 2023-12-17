@@ -7,3 +7,5 @@ export const HTTPPATCH = "PATCH";
 export const HTTPPUT = "PUT";
 
 export const HTTPDELETE = "DELETE";
+
+export const NOTFOUNDIMG = "/images/404.png";
