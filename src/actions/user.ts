@@ -8,7 +8,6 @@ export const adminLoginHandler = ({
 }: LoginPayload): Promise<string> =>
   new Promise(async (resolve, reject) => {
     try {
-      console.log("ok");
       const {
         data: { data, message },
         status,
