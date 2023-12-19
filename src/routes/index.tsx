@@ -7,6 +7,7 @@ import LoginPage from "../views/loginPage";
 import NotFoundPage from "../views/notFound";
 import NavigationBar from "../components/navbar/navigationBar";
 import AddProduct from "../views/addProduct";
+import Home from "../views/home";
 
 export default createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export default createBrowserRouter([
       return null
     }) as LoaderFunction<typeof NavigationBar>,
     children:[
+      {
+        path:'/',
+        element:<Home />
+      },
       {
         path:'/add-product',
         element:<AddProduct/>

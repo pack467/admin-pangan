@@ -1,3 +1,5 @@
+import type { ProductImgAttributes } from "./productImg";
+
 export interface CreateProductInput {
   name: string;
   price: number;
@@ -18,3 +20,7 @@ export interface ProductAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type ProductAttributesWithImages = ProductAttributes & {
+  ProductImgs: ProductImgAttributes[];
+};

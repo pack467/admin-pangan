@@ -5,3 +5,8 @@ export type BaseResponse<T = any> = {
   "Content-Type": string;
   Path: string;
 };
+
+export interface BaseQuery {
+  page?: number;
+  limit?: number;
+}

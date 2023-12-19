@@ -48,9 +48,10 @@ export default function AddProduct() {
     e.preventDefault();
     setLoading(true);
 
-    dispatch<any>(addProduct({ ...data, image: images })).then(() => {
-        navigate('/')
-    })
+    dispatch<any>(addProduct({ ...data, image: images }))
+      .then(() => {
+        navigate("/");
+      })
       .catch((err: any) =>
         swalError((err as unknown as any)?.message || "Internal Server Errors")
       )

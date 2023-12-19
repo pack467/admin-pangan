@@ -3,10 +3,12 @@ import request from "../lib/axios";
 import type {
   CreateProductInput,
   ProductAttributes,
+  ProductAttributesWithImages,
 } from "../interfaces/product";
 import type { ProductAction, ProductState } from "../reducers/product";
-import { ADDPRODUCTTYPES } from "../constant/product";
+import { ADDPRODUCTTYPES, GETALLPRODUCTS } from "../constant/product";
 import type { ImageInput } from "../interfaces";
+import type { BaseQuery } from "../interfaces/request";
 
 export const addProduct = (
   payload: CreateProductInput & { image: ImageInput[] }
@@ -53,3 +55,34 @@ export const addProduct = (
       reject(err);
     }
   });
+
+export const getAllProduct = ({
+  page,
+  limit,
+}: BaseQuery): ThunkAction<
+  Promise<ProductAttributesWithImages[]>,
+  ProductState,
+  any,
+  ProductAction
+> => async (dispatch) => {
+  const {
+    data: { data },
+    status,
+  } = await request.Query<ProductAttributesWithImages[]>({
+    url: "/product",
+    params: {
+      page,
+      limit,
+    },
+    headers: {
+      access_token: localStorage.getItem("access_token"),
+    },
+  });
+
+  dispatch<any>({
+    type: GETALLPRODUCTS,
+    payload: data,
+  });
+
+  return status !== 200 ? [] : data;
+};

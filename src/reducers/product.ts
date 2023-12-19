@@ -1,9 +1,13 @@
 import type { Reducer } from "redux";
-import type { ProductAttributes } from "../interfaces/product";
-import { ADDPRODUCTTYPES, type ProductTypes } from "../constant/product";
+import type { ProductAttributesWithImages } from "../interfaces/product";
+import {
+  ADDPRODUCTTYPES,
+  GETALLPRODUCTS,
+  type ProductTypes,
+} from "../constant/product";
 
 export interface ProductState {
-  products: ProductAttributes[];
+  products: ProductAttributesWithImages[];
 }
 
 export type ProductAction<T = any> = {
@@ -21,7 +25,15 @@ const reducer: Reducer<ProductState, ProductAction> = (
     case ADDPRODUCTTYPES:
       return {
         ...state,
-        products: [...state.products, payload],
+        products: [
+          ...state.products,
+          { ...payload, ProductImgs: payload.image },
+        ],
+      };
+    case GETALLPRODUCTS:
+      return {
+        ...state,
+        products: [...state.products, ...payload],
       };
     default:
       return state;
