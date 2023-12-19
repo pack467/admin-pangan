@@ -1,18 +1,19 @@
 import type { Reducer } from "redux";
 import type {
-  CarouselAttributes,
+  CarrouselWithProduct,
   ProductAttributesWithImages,
 } from "../interfaces/product";
 import {
   ADDCAROUSEL,
   ADDPRODUCTTYPES,
+  GETALLCAROUSEL,
   GETALLPRODUCTS,
   type ProductTypes,
 } from "../constant/product";
 
 export interface ProductState {
   products: ProductAttributesWithImages[];
-  carrousel: CarouselAttributes[];
+  carrousels: CarrouselWithProduct[];
 }
 
 export type ProductAction<T = any> = {
@@ -20,7 +21,7 @@ export type ProductAction<T = any> = {
   payload: T;
 };
 
-const initialState: ProductState = { products: [], carrousel: [] };
+const initialState: ProductState = { products: [], carrousels: [] };
 
 const reducer: Reducer<ProductState, ProductAction> = (
   state = initialState as ProductState,
@@ -38,13 +39,18 @@ const reducer: Reducer<ProductState, ProductAction> = (
     case GETALLPRODUCTS:
       return {
         ...state,
-        products: [...state.products, ...payload],
+        products: [...state.products, ...(payload || [])],
       };
     case ADDCAROUSEL:
       return {
         ...state,
-        carrousel:[...state.carrousel,payload]
-      }
+        carrousels: [...state.carrousels, payload],
+      };
+    case GETALLCAROUSEL:
+      return {
+        ...state,
+        carrousels: payload,
+      };
     default:
       return state;
   }

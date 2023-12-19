@@ -3,6 +3,7 @@ import request from "../lib/axios";
 import type {
   AddCarouselInput,
   CarouselAttributes,
+  CarrouselWithProduct,
   CreateProductInput,
   ProductAttributes,
   ProductAttributesWithImages,
@@ -11,6 +12,7 @@ import type { ProductAction, ProductState } from "../reducers/product";
 import {
   ADDCAROUSEL,
   ADDPRODUCTTYPES,
+  GETALLCAROUSEL,
   GETALLPRODUCTS,
 } from "../constant/product";
 import type { ImageInput } from "../interfaces";
@@ -125,3 +127,29 @@ export const addCarousel = (
       reject(err);
     }
   });
+
+export const getAllCarousel = (): ThunkAction<
+  Promise<CarrouselWithProduct[]>,
+  ProductState,
+  any,
+  ProductAction
+> => async (dispatch) => {
+  const {
+    data: { data },
+    status,
+  } = await request.Query({
+    url: "/carrousel/",
+    headers: {
+      access_token: localStorage.getItem("access_token"),
+    },
+  });
+
+  const payload = status !== 200 ? [] : data;
+
+  dispatch<any>({
+    type: GETALLCAROUSEL,
+    payload,
+  });
+
+  return payload;
+};

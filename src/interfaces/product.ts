@@ -36,3 +36,7 @@ export interface AddCarouselInput {
   productId: string;
   imageId: string;
 }
+
+export type CarrouselWithProduct = CarouselAttributes & {
+  Product: ProductAttributesWithImages;
+};
