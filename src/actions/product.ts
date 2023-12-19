@@ -1,12 +1,18 @@
 import type { ThunkAction } from "redux-thunk";
 import request from "../lib/axios";
 import type {
+  AddCarouselInput,
+  CarouselAttributes,
   CreateProductInput,
   ProductAttributes,
   ProductAttributesWithImages,
 } from "../interfaces/product";
 import type { ProductAction, ProductState } from "../reducers/product";
-import { ADDPRODUCTTYPES, GETALLPRODUCTS } from "../constant/product";
+import {
+  ADDCAROUSEL,
+  ADDPRODUCTTYPES,
+  GETALLPRODUCTS,
+} from "../constant/product";
 import type { ImageInput } from "../interfaces";
 import type { BaseQuery } from "../interfaces/request";
 
@@ -86,3 +92,36 @@ export const getAllProduct = ({
 
   return status !== 200 ? [] : data;
 };
+
+export const addCarousel = (
+  payload: AddCarouselInput
+): ThunkAction<
+  Promise<CarouselAttributes>,
+  ProductState,
+  any,
+  ProductAction
+> => (dispatch) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const {
+        status,
+        data: { message },
+      } = await request.Mutation({
+        method: "POST",
+        url: "/carrousel/",
+        data: payload,
+        headers: { access_token: localStorage.getItem("access_token") },
+      });
+
+      if (status !== 201) throw { message };
+
+      dispatch<any>({
+        type: ADDCAROUSEL,
+        payload,
+      });
+
+      resolve({ ...payload, createdAt: new Date(), updatedAt: new Date() });
+    } catch (err) {
+      reject(err);
+    }
+  });

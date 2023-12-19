@@ -8,6 +8,7 @@ import NotFoundPage from "../views/notFound";
 import NavigationBar from "../components/navbar/navigationBar";
 import AddProduct from "../views/addProduct";
 import Home from "../views/home";
+import AddCarousel from "../views/addCarouselForm";
 
 export default createBrowserRouter([
   {
@@ -33,6 +34,10 @@ export default createBrowserRouter([
       {
         path:'/add-product',
         element:<AddProduct/>
+      },
+      {
+        path:'/add-carousel',
+        element:<AddCarousel />
       }
     ]
   },
