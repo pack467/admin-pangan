@@ -6,8 +6,11 @@ export const ADDCAROUSEL = "ADD-NEW-CAROUSEL";
 
 export const GETALLCAROUSEL = "GET-ALL-CAROUSEL";
 
+export const RESETPRODUCT = "RESET-ALL-PRODUCT";
+
 export type ProductTypes =
   | "ADD-NEW-PRODUCT"
   | "GET-ALL-PRODUCTS"
   | "ADD-NEW-CAROUSEL"
-  | "GET-ALL-CAROUSEL";
+  | "GET-ALL-CAROUSEL"
+  | "RESET-ALL-PRODUCT";

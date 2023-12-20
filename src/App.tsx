@@ -5,10 +5,8 @@ import store from "./store";
 
 export default function App() {
   return (
-    <div className="App">
-      <Provider store={store}>
-        <RouterProvider router={routes} />
-      </Provider>
-    </div>
+    <Provider store={store}>
+      <RouterProvider router={routes} />
+    </Provider>
   );
 }

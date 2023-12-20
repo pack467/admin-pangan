@@ -9,6 +9,7 @@ import NavigationBar from "../components/navbar/navigationBar";
 import AddProduct from "../views/addProduct";
 import Home from "../views/home";
 import AddCarousel from "../views/addCarouselForm";
+import ProductDetail from "../views/productDetail";
 
 export default createBrowserRouter([
   {
@@ -16,33 +17,37 @@ export default createBrowserRouter([
     path: "/login",
     loader: (() => {
       if (localStorage.getItem("access_token")) return redirect("/");
-      return null
+      return null;
     }) as LoaderFunction<typeof LoginPage>,
   },
   {
-    path:'/',
-    element:<NavigationBar />,
+    path: "/",
+    element: <NavigationBar />,
     loader: (() => {
       if (!localStorage.getItem("access_token")) return redirect("/login");
-      return null
+      return null;
     }) as LoaderFunction<typeof NavigationBar>,
-    children:[
+    children: [
       {
-        path:'/',
-        element:<Home />
+        path: "/",
+        element: <Home />,
       },
       {
-        path:'/add-product',
-        element:<AddProduct/>
+        path: "/add-product",
+        element: <AddProduct />,
       },
       {
-        path:'/add-carousel',
-        element:<AddCarousel />
-      }
-    ]
+        path: "/add-carousel",
+        element: <AddCarousel />,
+      },
+      {
+        path: "/product/:id",
+        element: <ProductDetail />,
+      },
+    ],
   },
   {
-    path:'*',
-    element:<NotFoundPage />
-  }
+    path: "*",
+    element: <NotFoundPage />,
+  },
 ]);

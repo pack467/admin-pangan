@@ -8,6 +8,7 @@ import {
   ADDPRODUCTTYPES,
   GETALLCAROUSEL,
   GETALLPRODUCTS,
+  RESETPRODUCT,
   type ProductTypes,
 } from "../constant/product";
 
@@ -39,7 +40,7 @@ const reducer: Reducer<ProductState, ProductAction> = (
     case GETALLPRODUCTS:
       return {
         ...state,
-        products: [...state.products, ...(payload || [])],
+        products: payload || [],
       };
     case ADDCAROUSEL:
       return {
@@ -50,6 +51,11 @@ const reducer: Reducer<ProductState, ProductAction> = (
       return {
         ...state,
         carrousels: payload,
+      };
+    case RESETPRODUCT:
+      return {
+        ...state,
+        products: [],
       };
     default:
       return state;

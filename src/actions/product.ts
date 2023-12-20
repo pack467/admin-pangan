@@ -7,6 +7,7 @@ import type {
   CreateProductInput,
   ProductAttributes,
   ProductAttributesWithImages,
+  UpdateProductInput,
 } from "../interfaces/product";
 import type { ProductAction, ProductState } from "../reducers/product";
 import {
@@ -14,6 +15,7 @@ import {
   ADDPRODUCTTYPES,
   GETALLCAROUSEL,
   GETALLPRODUCTS,
+  RESETPRODUCT,
 } from "../constant/product";
 import type { ImageInput } from "../interfaces";
 import type { BaseQuery } from "../interfaces/request";
@@ -152,4 +154,53 @@ export const getAllCarousel = (): ThunkAction<
   });
 
   return payload;
+};
+
+export const getProductById = async (
+  id: string
+): Promise<ProductAttributesWithImages> => {
+  const {
+    data: { data, message },
+    status,
+  } = await request.Query<ProductAttributesWithImages>({
+    url: `/product/${id}`,
+    headers: {
+      access_token: localStorage.getItem("access_token"),
+    },
+  });
+
+  if (status !== 200) throw { message };
+  return data;
+};
+
+export const updateProduct = (
+  { name, price, desc, status, stock }: UpdateProductInput,
+  productId: string
+): ThunkAction<Promise<void>, ProductState, any, ProductAction> => async (
+  dispatch
+) => {
+  const {
+    status: httpStatus,
+    data: { message },
+  } = await request.Mutation({
+    url: `/product/${productId}`,
+    method: "PUT",
+    headers: {
+      access_token: localStorage.getItem("access_token"),
+    },
+    data: {
+      name,
+      price,
+      desc,
+      status,
+      stock,
+    },
+  });
+
+  if (httpStatus !== 200) throw { message };
+
+  dispatch<any>({
+    type: RESETPRODUCT,
+    payload: [],
+  });
 };

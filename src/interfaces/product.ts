@@ -8,6 +8,14 @@ export interface CreateProductInput {
   typeId: string;
 }
 
+export interface UpdateProductInput {
+  name?: string;
+  price?: number;
+  desc?: string;
+  stock?: number;
+  status?: "available" | "not available" | "preorder";
+}
+
 export interface ProductAttributes {
   name: string;
   price: number;
