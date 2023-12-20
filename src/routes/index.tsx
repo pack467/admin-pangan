@@ -10,6 +10,7 @@ import AddProduct from "../views/addProduct";
 import Home from "../views/home";
 import AddCarousel from "../views/addCarouselForm";
 import ProductDetail from "../views/productDetail";
+import RegisterPage from "../views/registerPage";
 
 export default createBrowserRouter([
   {
@@ -44,6 +45,10 @@ export default createBrowserRouter([
         path: "/product/:id",
         element: <ProductDetail />,
       },
+      {
+        path:'/register',
+        element:<RegisterPage />
+      }
     ],
   },
   {

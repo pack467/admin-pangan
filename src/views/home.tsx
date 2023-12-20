@@ -22,7 +22,7 @@ export default function Home() {
       <Row>
         {!!carrousels.length &&
           carrousels.map((carrousel) => (
-            <Col key={carrousel.imageId} sm="12" md="4" lg="3" xl="1">
+            <Col key={carrousel.imageId}>
               <CarouselCard carrousel={carrousel} />
             </Col>
           ))}
@@ -30,7 +30,7 @@ export default function Home() {
       <Row>
         {!!products.length &&
           products.map((product) => (
-            <Col key={product.UUID} sm="12" md="4" lg="3" xl="1">
+            <Col key={product.UUID}>
               <ProductCard product={product} />
             </Col>
           ))}

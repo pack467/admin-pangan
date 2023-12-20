@@ -14,7 +14,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <Card style={{ width: "18rem" }} onClick={handleClick} className="mb-2">
+    <Card onClick={handleClick} className="mb-2">
       <Card.Img variant="top" src={product.ProductImgs[0].imageUrl} />
       <Card.Body>
         <Card.Title>{product.name}</Card.Title>

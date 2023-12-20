@@ -1,24 +1,30 @@
 import { useState, type ChangeEvent, type FormEvent } from "react";
-import { Container, Button, Form } from "react-bootstrap";
 import EmailForm from "../components/form/emailForm";
 import PasswordForm from "../components/form/passwordForm";
 import { useNavigate } from "react-router-dom";
-import { adminLoginHandler } from "../actions/user";
 import { swalError } from "../lib/swal";
+import { Form, Container, Button } from "react-bootstrap";
+import TextForm from "../components/form/textForm";
+import { registerNewAdmin } from "../actions/user";
 import LoadingWrapper from "../components/loaders/loadingOverlay";
 
 export type state = {
+  name: string;
   email: string;
   password: string;
+  confirmPassword:string
 };
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const navigate = useNavigate();
   const [data, setData] = useState<state>({
+    name: "",
     email: "",
     password: "",
+    confirmPassword:''
   });
   const [hidePass, setHidePass] = useState<boolean>(true);
+  const [hideConfirmPass, setHideConfirmPass] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,13 +39,12 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
 
-    adminLoginHandler(data)
-      .then((data) => {
-        localStorage.setItem("access_token", data);
+    registerNewAdmin(data)
+      .then(() => {
         navigate("/");
       })
       .catch((err) => {
-        swalError(err.message);
+        swalError(err?.message || "Internal Server Error");
       })
       .finally(() => {
         setLoading(false);
@@ -50,6 +55,14 @@ export default function LoginPage() {
     <LoadingWrapper active={loading}>
       <Container fluid className="p-3 my-5 h-custom">
         <Form onSubmit={onSubmit}>
+          <TextForm
+            value={data.name}
+            onChange={onChangeHandler}
+            placeHolder="name"
+            label="name"
+            id="name"
+            name="name"
+          />
           <EmailForm
             name="email"
             value={data.email}
@@ -61,6 +74,13 @@ export default function LoginPage() {
             handler={onChangeHandler}
             hide={hidePass}
             hidePasswordHandler={setHidePass}
+          />
+          <PasswordForm
+            name="confirmPassword"
+            value={data.confirmPassword}
+            handler={onChangeHandler}
+            hide={hideConfirmPass}
+            hidePasswordHandler={setHideConfirmPass}
           />
           <Button
             variant="primary"

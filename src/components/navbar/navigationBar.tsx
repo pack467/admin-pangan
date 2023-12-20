@@ -37,6 +37,7 @@ export default function NavigationBar() {
               <Link to="/">Home</Link>
               <Link to="/add-product">Add Product</Link>
               <Link to="/add-carousel">Add Carousel</Link>
+              <Link to="/register">Add New Admin</Link>
               <Button onClick={logout} size="sm">
                 Log out
               </Button>

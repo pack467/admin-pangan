@@ -19,6 +19,7 @@ import {
 } from "../constant/product";
 import type { ImageInput } from "../interfaces";
 import type { BaseQuery } from "../interfaces/request";
+import { HTTPPOST, HTTPPUT } from "../constant";
 
 export const addProduct = (
   payload: CreateProductInput & { image: ImageInput[] }
@@ -46,7 +47,7 @@ export const addProduct = (
         status,
       } = await request.Mutation<ProductAttributes>({
         url: "/product",
-        method: "POST",
+        method: HTTPPOST,
         headers: {
           access_token: localStorage.getItem("access_token"),
         },
@@ -111,7 +112,7 @@ export const addCarousel = (
         status,
         data: { message },
       } = await request.Mutation({
-        method: "POST",
+        method: HTTPPOST,
         url: "/carrousel/",
         data: payload,
         headers: { access_token: localStorage.getItem("access_token") },
@@ -184,7 +185,7 @@ export const updateProduct = (
     data: { message },
   } = await request.Mutation({
     url: `/product/${productId}`,
-    method: "PUT",
+    method: HTTPPUT,
     headers: {
       access_token: localStorage.getItem("access_token"),
     },

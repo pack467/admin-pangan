@@ -16,6 +16,7 @@ export default function CarouselCard({ carrousel }: CarouselCardProps) {
               (el) => el.imageId === carrousel.imageId
             )?.imageUrl as string
           }
+          style={{ objectFit: "cover" }}
         />
         <Carousel.Caption>
           <h3>{carrousel.Product.name}</h3>
