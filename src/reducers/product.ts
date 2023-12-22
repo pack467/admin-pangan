@@ -32,10 +32,7 @@ const reducer: Reducer<ProductState, ProductAction> = (
     case ADDPRODUCTTYPES:
       return {
         ...state,
-        products: [
-          ...state.products,
-          { ...payload, ProductImgs: payload.image },
-        ],
+        products: [],
       };
     case GETALLPRODUCTS:
       return {
@@ -45,7 +42,7 @@ const reducer: Reducer<ProductState, ProductAction> = (
     case ADDCAROUSEL:
       return {
         ...state,
-        carrousels: [...state.carrousels, payload],
+        carrousels: [],
       };
     case GETALLCAROUSEL:
       return {

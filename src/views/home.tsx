@@ -13,9 +13,9 @@ export default function Home() {
   );
 
   useEffect(() => {
-    if (!products.length) dispatch<any>(getAllProduct({}));
-    if (!carrousels.length) dispatch<any>(getAllCarousel());
-  }, [dispatch, products, carrousels]);
+    dispatch<any>(getAllProduct({}));
+    dispatch<any>(getAllCarousel());
+  }, []);
 
   return (
     <Container fluid>

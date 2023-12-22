@@ -30,9 +30,8 @@ export default function AddProduct() {
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!productTypes.length)
       (async () => await dispatch<any>(getAllProductTypes()))();
-  }, [dispatch, productTypes.length]);
+  }, []);
 
   const onChangeHandler = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
