@@ -39,7 +39,7 @@ export default function LoginPage() {
         navigate("/");
       })
       .catch((err) => {
-        swalError(err.message);
+        swalError(err?.message || 'Internal Server Error');
       })
       .finally(() => {
         setLoading(false);

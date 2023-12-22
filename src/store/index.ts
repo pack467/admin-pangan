@@ -3,7 +3,6 @@ import {
   combineReducers,
   applyMiddleware,
   type Reducer,
-  type Action,
 } from "redux";
 import { thunk } from "redux-thunk";
 import productTypeReducer, {
