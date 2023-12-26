@@ -13,13 +13,14 @@ import type { ProductAction, ProductState } from "../reducers/product";
 import {
   ADDCAROUSEL,
   ADDPRODUCTTYPES,
+  DELETECAROUSEL,
   GETALLCAROUSEL,
   GETALLPRODUCTS,
   RESETPRODUCT,
 } from "../constant/product";
 import type { ImageInput } from "../interfaces";
 import type { BaseQuery } from "../interfaces/request";
-import { HTTPPOST, HTTPPUT } from "../constant";
+import { HTTPDELETE, HTTPPOST, HTTPPUT } from "../constant";
 
 export const addProduct = (
   payload: CreateProductInput & { image: ImageInput[] }
@@ -205,3 +206,33 @@ export const updateProduct = (
     payload: [],
   });
 };
+
+export const deleteCarousel = (
+  imageId: string,
+  productId: string
+): ThunkAction<Promise<void>, ProductState, any, ProductAction> => (dispatch) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const {
+        data: { message },
+        status,
+      } = await request.Mutation({
+        headers: {
+          access_token: localStorage.getItem("access_token"),
+        },
+        method: HTTPDELETE,
+        url: `/carrousel/${productId}/${imageId}`,
+      });
+
+      if (status !== 200) throw { message };
+
+      dispatch<any>({
+        type: DELETECAROUSEL,
+        payload: imageId,
+      });
+
+      resolve();
+    } catch (err) {
+      reject(err);
+    }
+  });

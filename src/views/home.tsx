@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import type { RootReducer } from "../store";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Carousel } from "react-bootstrap";
 import ProductCard from "../components/card/productCard";
 import { useEffect } from "react";
 import { getAllCarousel, getAllProduct } from "../actions/product";
@@ -20,12 +20,12 @@ export default function Home() {
   return (
     <Container fluid>
       <Row>
-        {!!carrousels.length &&
-          carrousels.map((carrousel) => (
-            <Col key={carrousel.imageId}>
-              <CarouselCard carrousel={carrousel} />
-            </Col>
-          ))}
+        <Carousel>
+          {!!carrousels.length &&
+            carrousels.map((carrousel) => (
+              <CarouselCard carrousel={carrousel} key={carrousel.imageId} />
+            ))}
+        </Carousel>
       </Row>
       <Row>
         {!!products.length &&

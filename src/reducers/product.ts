@@ -10,6 +10,7 @@ import {
   GETALLPRODUCTS,
   RESETPRODUCT,
   type ProductTypes,
+  DELETECAROUSEL,
 } from "../constant/product";
 
 export interface ProductState {
@@ -48,6 +49,11 @@ const reducer: Reducer<ProductState, ProductAction> = (
       return {
         ...state,
         carrousels: payload,
+      };
+    case DELETECAROUSEL:
+      return {
+        ...state,
+        carrousels: state.carrousels.filter((el) => el.imageId !== payload),
       };
     case RESETPRODUCT:
       return {
